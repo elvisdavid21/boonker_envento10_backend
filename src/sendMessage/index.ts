@@ -6,32 +6,14 @@ const fs = require('fs');
 const QRCode = require('qrcode');
 
 const sendMessage = async (datos) => {
-  console.log(datos)
   const infoCliente = datos.split(",");
   
-  if(infoCliente) {
-    console.log(infoCliente)
-  }else{
-    console.log('sin datos...')
-  }
   const nombre = infoCliente[0].split(":")[1];
-  if(nombre) {
-    console.log(nombre);
-  }else {
-    console.log('sin nombre')
-  }
+  
   const correo = infoCliente[1].split(":")[1];
-  if(correo) {
-    console.log(correo);
-  }else {
-    console.log('sin correo')
-  }
+ 
   const constructora = infoCliente[2].split(":")[1];
-  if(constructora) {
-    console.log(constructora);
-  }else {
-    console.log('sin constructora')
-  }
+  
   const telefono = infoCliente[3].split(":")[1].trim().replace(/^0+/, '');
   const telefonoCodigo = `+593${telefono}`;
   const fechaHora = (infoCliente[4] + infoCliente[5] + infoCliente[6]).split("Agenda tu visita:")[1];
@@ -74,15 +56,8 @@ const sendMessage = async (datos) => {
     doc.image(qrCodeURL, 240, 350, { fit: [130, 130], align: 'center', valign: 'center' })
 
     doc.fontSize(20)
+
     //Iconos
-    const x1 = 198
-    const y1 = 688
-    const texto1 = '...'; 
-    const email1 = '';
-    const url1 = `mailto`;
-    doc.fillColor('#ffffff').text(texto1, x1, y1)
-    doc.link(x1, y1, doc.widthOfString(texto1), doc.currentLineHeight(), url1);
-    
     const x = 198
     const y = 688
     const texto = '...'; 
@@ -107,7 +82,7 @@ const sendMessage = async (datos) => {
     const x3 = 322;
     const y3 = 703;
     const texto3 = '...';
-    const telefonoFijo = process.env.TEL_FIJO;
+    const telefonoFijo = '+593024760357';
     const url3 = `tel:${telefonoFijo}`;
 
     // Añadir el texto
@@ -121,10 +96,8 @@ const sendMessage = async (datos) => {
     const y4 = 695;
     const texto4 = '...';
     const url4 = process.env.URL_FRONT;
-
     // Añadir el texto
     doc.fillColor('#ffffff').text(texto4, x4, y4);
-
     // Añadir el enlace en la misma posición
     doc.link(x4, y4, doc.widthOfString(texto4), doc.currentLineHeight(), url4);
     // Finalizar PDF
