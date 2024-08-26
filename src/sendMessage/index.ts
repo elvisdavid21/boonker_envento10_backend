@@ -6,6 +6,7 @@ const fs = require('fs');
 const QRCode = require('qrcode');
 
 const sendMessage = async (datos) => {
+  console.log(datos)
   const infoCliente = datos.split(",");
   
   const nombre = infoCliente[0].split(":")[1];
@@ -49,8 +50,8 @@ const sendMessage = async (datos) => {
     doc.fontSize(20).fillColor('#000000').text(`Estimado/a ${nombre},`, 100, 262, { align: 'center', valign: 'center' });
     doc.moveDown().text(`${soloFecha}`, 100, 330, { align: 'center' });
     doc.moveDown().text(`${soloHora} horas.`, 100, 536, { align: 'center' });
-    doc.rect(192, 605, 239, 18).fill('#000000');
-    doc.fontSize(9).moveDown().fillColor('#ffffff').text('FAVOR PRESENTAR ESTA CREDENCIAL AL INGRESAR', 100, 610, {align: 'center'})
+    doc.rect(178, 605, 239, 18).fill('#000000');
+    doc.fontSize(9).moveDown().fillColor('#ffffff').text('FAVOR PRESENTAR ESTA CREDENCIAL AL INGRESAR', 72, 610, {align: 'center'})
 
     // Añadir el QR
     doc.image(qrCodeURL, 240, 350, { fit: [130, 130], align: 'center', valign: 'center' })
@@ -96,16 +97,14 @@ const sendMessage = async (datos) => {
     const y4 = 695;
     const texto4 = '...';
     const url4 = process.env.URL_FRONT;
-    // Añadir el texto
     doc.fillColor('#ffffff').text(texto4, x4, y4);
-    // Añadir el enlace en la misma posición
+
     doc.link(x4, y4, doc.widthOfString(texto4), doc.currentLineHeight(), url4);
-    // Finalizar PDF
+
     doc.end();
     return pdfPath;
   };
 
-  // Esperar a que el PDF sea creado
   const pdfPath = await crearPDF(nombre, soloFecha, soloHora);
 
   // Enviar correo
