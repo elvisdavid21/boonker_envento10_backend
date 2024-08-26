@@ -1,3 +1,4 @@
+import path from 'path'
 const { format, parse } = require('date-fns');
 const { es } = require('date-fns/locale');
 const nodemailer = require("nodemailer");
@@ -43,7 +44,7 @@ const sendMessage = async (datos) => {
     doc.pipe(fs.createWriteStream(pdfPath));
 
     // Establecer una imagen de fondo si tienes una imagen
-    const imagenFondo = './src/img/fondoConfirmacion.png'; // Cambiar por la ruta de tu imagen
+    const imagenFondo = path.resolve(__dirname, './src/img/fondoConfirmacion.png'); // ruta de la imagen
     doc.image(imagenFondo, 0, 0, { width: doc.page.width, height: doc.page.height });
 
     // Añadir el texto sobre la imagen
@@ -106,6 +107,7 @@ const sendMessage = async (datos) => {
   };
 
   const pdfPath = await crearPDF(nombre, soloFecha, soloHora);
+  console.log('pdf => ', pdfPath)
 
   // Enviar correo
   const transporter = nodemailer.createTransport({
