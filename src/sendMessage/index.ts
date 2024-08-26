@@ -1,4 +1,5 @@
-import path from 'path'
+import axios from 'axios'
+
 const { format, parse } = require('date-fns');
 const { es } = require('date-fns/locale');
 const nodemailer = require("nodemailer");
@@ -44,8 +45,12 @@ const sendMessage = async (datos) => {
     doc.pipe(fs.createWriteStream(pdfPath));
 
     // Establecer una imagen de fondo si tienes una imagen
-    const imagenFondo = path.resolve(__dirname, './src/img/fondoConfirmacion.png'); // ruta de la imagen
-    doc.image(imagenFondo, 0, 0, { width: doc.page.width, height: doc.page.height });
+    const imagenFondo = 'https://i.postimg.cc/44Hj99WX/fondo-Confirmacion.png'; // ruta de la imagen
+
+    const response = await axios.get(imagenFondo, { responseType: 'arraybuffer' });
+    const imageBuffer = Buffer.from(response.data, 'base64')
+
+    doc.image(imageBuffer, 0, 0, { width: doc.page.width, height: doc.page.height });
 
     // Añadir el texto sobre la imagen
     doc.fontSize(20).fillColor('#000000').text(`Estimado/a ${nombre},`, 100, 262, { align: 'center', valign: 'center' });
