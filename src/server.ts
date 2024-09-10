@@ -16,7 +16,7 @@ async function connectBD() {
         console.log(colors.bgRed('Error al conectar a la BD'))
     }
 }
-//connectBD()
+connectBD()
 
 //instancia de express
 const server = express()

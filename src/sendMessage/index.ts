@@ -150,5 +150,5 @@ const sendMessage = async (datos) => {
   }
 };
 
-export default sendMessage;
+export {sendMessage}
 

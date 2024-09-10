@@ -8,28 +8,33 @@ class Invitados extends Model {
     @Column({
         type: DataType.STRING(100)
     })
-    nombre: string
-
-    @Default('Constructora')
-    @Column({
-        type: DataType.STRING(100)
-    })
-    apellido: string
+    nombre!: string
 
     @Column({
         type: DataType.STRING(10)
     })
-    telefono: string
+    telefono!: string
 
     @Column({
         type: DataType.STRING(80)
     })
-    email: string
+    email!: string
 
     @Column({
-        type: DataType.STRING(20)
+        type: DataType.STRING(80)
     })
-    fecha: string
+    fecha!: string
+
+    @Column({
+        type: DataType.STRING(50)
+    })
+    constructora!: string
+
+    @Default(false)
+    @Column({
+        type: DataType.BOOLEAN
+    })
+    asistencia!: boolean
 }
 
 export default Invitados
